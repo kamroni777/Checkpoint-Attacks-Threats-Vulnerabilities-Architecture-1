@@ -1,0 +1,22 @@
+Batch script (Windows command-line script)
+
+Suspicious Indicators:
+The .bat extension indicates an executable script that runs Windows commands
+
+Upon analysis with Windows Defender, it was not flagged as malicious (false negative)
+
+Why Not Detected?
+The script may use obfuscation or legitimate commands that don't trigger signature-based detection
+
+Batch files are often whitelisted as they're commonly used for admin tasks
+
+May employ "living off the land" techniques using built-in Windows tools
+
+Recommended Action:
+Escalate to senior analysts due to:
+
+Unknown origin/purpose
+
+Potential for embedded malicious commands
+
+Need for deeper behavioral analysis

